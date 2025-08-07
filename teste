@@ -1,0 +1,85 @@
+#include <stdio.h>
+
+struct Carta {
+    char nome_pais[50];
+    unsigned long int populacao;
+    float area;
+    float pib; // em bilhões de R$
+    int pontos_turisticos;
+    float densidade_populacional;
+    float pib_per_capita;
+};
+
+// Função para exibir os atributos disponíveis
+void exibirAtributosDisponiveis(int usado[]) {
+    printf("\nEscolha um atributo para comparar:\n");
+    if (!usado[1]) printf("1. População\n");
+    if (!usado[2]) printf("2. Área\n");
+    if (!usado[3]) printf("3. PIB\n");
+    if (!usado[4]) printf("4. Pontos Turísticos\n");
+    if (!usado[5]) printf("5. Densidade Populacional\n");
+    if (!usado[6]) printf("6. PIB per Capita\n");
+}
+
+// Função para obter o valor do atributo com base na escolha
+float obterValorAtributo(struct Carta c, int escolha) {
+    switch (escolha) {
+        case 1: return (float)c.populacao;
+        case 2: return c.area;
+        case 3: return c.pib;
+        case 4: return (float)c.pontos_turisticos;
+        case 5: return c.densidade_populacional;
+        case 6: return c.pib_per_capita;
+        default: return -1; // inválido
+    }
+}
+
+// Função para obter o nome do atributo
+const char* nomeAtributo(int escolha) {
+    switch (escolha) {
+        case 1: return "População";
+        case 2: return "Área";
+        case 3: return "PIB";
+        case 4: return "Pontos Turísticos";
+        case 5: return "Densidade Populacional";
+        case 6: return "PIB per Capita";
+        default: return "Desconhecido";
+    }
+}
+
+int main() {
+    struct Carta carta1 = {"Brasil", 214000000, 8515767.0, 1860.0, 50, 25.1, 8691.6};
+    struct Carta carta2 = {"Alemanha", 83000000, 357386.0, 4500.0, 65, 232.3, 54216.7};
+
+    int usado[7] = {0}; // índice 1-6 usado para marcar atributos já escolhidos
+    int atributo1, atributo2;
+
+    // Escolha do primeiro atributo
+    while (1) {
+        exibirAtributosDisponiveis(usado);
+        printf("Escolha o primeiro atributo (1-6): ");
+        scanf("%d", &atributo1);
+        if (atributo1 >= 1 && atributo1 <= 6 && !usado[atributo1]) {
+            usado[atributo1] = 1;
+            break;
+        } else {
+            printf("Opção inválida ou já escolhida!\n");
+        }
+    }
+
+    // Escolha do segundo atributo
+    while (1) {
+        exibirAtributosDisponiveis(usado);
+        printf("Escolha o segundo atributo (1-6): ");
+        scanf("%d", &atributo2);
+        if (atributo2 >= 1 && atributo2 <= 6 && !usado[atributo2]) {
+            usado[atributo2] = 1;
+            break;
+        } else {
+            printf("Opção inválida ou já escolhida!\n");
+        }
+    }
+
+    // Obtenção dos valores
+    float v1_attr1 = obterValorAtributo(carta1, atributo1);
+    float v2_attr1 = obte_
